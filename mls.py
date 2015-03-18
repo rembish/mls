@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # coding=utf-8
 from locale import getlocale, getdefaultlocale, setlocale, LC_ALL, locale_alias
 
