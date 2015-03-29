@@ -34,6 +34,13 @@ languages = sorted(set([
 
 class MultiLingualString(unicode):
     def __new__(cls, mapping=None, language=None, **kwargs):
+        if isinstance(mapping, MultiLingualString):
+            language = language or mapping.language
+            instance = unicode.__new__(cls, unicode(mapping >> language))
+            instance._mapping = mapping._mapping
+            instance.language = language
+            return instance
+
         language = _extract_language(language or _get_system_locale())
         if language not in languages:
             raise ValueError("Unknown language: {}".format(language))
@@ -113,3 +120,13 @@ if __name__ == "__main__":
     y = u >> "ru"
 
     assert unicode(y) == u"Здравствуй, мир"
+
+    z = mls(y)
+
+    assert unicode(z) == unicode(y)
+    assert z.language == "ru"
+    assert z >> "en" == "Hello, world"
+
+    w = mls(y, language="en")
+
+    assert w == "Hello, world"
