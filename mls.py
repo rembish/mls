@@ -6,14 +6,11 @@ __all__ = ["mls", "MultiLingualString"]
 
 
 def _get_system_locale():
-    locale = getlocale()[0]
-    if not locale:
-        locale = getdefaultlocale()[0]
-    return locale
+    return getlocale()[0] or getdefaultlocale()[0]
 
 
-def _extract_language(locale):
-    return locale.split("_")[0].lower()
+def _extract_language(locale_string):
+    return locale_string.split("_")[0].lower()
 
 
 def _convert(value):
@@ -25,7 +22,7 @@ def _convert(value):
     return text_type(value)
 
 
-languages = sorted(set([
+LANGUAGES = sorted(set([
     _extract_language(locale)
     for locale in locale_alias.values()
     if locale != "C"
@@ -42,7 +39,7 @@ class MultiLingualString(text_type):
             return instance
 
         language = _extract_language(language or _get_system_locale())
-        if language not in languages:
+        if language not in LANGUAGES:
             raise ValueError("Unknown language: {}".format(language))
 
         if mapping is None:
@@ -51,8 +48,8 @@ class MultiLingualString(text_type):
             mapping = {language: _convert(mapping)}
 
         mapping.update(kwargs)
-        for key in kwargs:
-            if key not in languages:
+        for key in mapping:
+            if key not in LANGUAGES:
                 raise ValueError("Unknown mutation mapping: {}".format(key))
 
         value = mapping.get(language, mapping.get(

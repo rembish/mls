@@ -26,7 +26,11 @@ class TestCase(BaseTestCase):
         c = b.translate_to("cs", "Nazdar")
 
         self.assertEqual(repr(a), "en'Hi'")
-        self.assertEqual(repr(b), "ru'\u041f\u0440\u0438\u0432\u0435\u0442'" if PY3 else "ru'\\xd0\\x9f\\xd1\\x80\\xd0\\xb8\\xd0\\xb2\\xd0\\xb5\\xd1\\x82'")
+        self.assertEqual(
+            repr(b),
+            "ru'\u041f\u0440\u0438\u0432\u0435\u0442'" if PY3 else
+            "ru'\\xd0\\x9f\\xd1\\x80\\xd0\\xb8\\xd0\\xb2\\xd0\\xb5\\xd1\\x82'"
+        )
         self.assertEqual(repr(c), "cs'Nazdar'")
 
     def test_empty(self):
@@ -61,6 +65,11 @@ class TestCase(BaseTestCase):
 
         w = mls(t, language="en")
         self.assertEqual(w, "Hello, world")
+
+    def test_invalids(self):
+        self.assertRaises(ValueError, mls, "Error", language="xxx")
+        self.assertRaises(ValueError, mls, {"xxx": u("Проблема")})
+        self.assertRaises(ValueError, mls, type("Nothing", (), {}))
 
 
 if __name__ == "__main__":
