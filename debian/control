@@ -1,0 +1,30 @@
+Source: python-mls
+Section: python
+Priority: extra
+Maintainer: Aleksey Rembish <alex@rembish.org>
+Build-Depends:
+ debhelper (>= 9),
+ dh-python,
+ python, python3,
+ python-setuptools, python3-setuptools
+Standards-Version: 3.9.5
+X-Python-Version: >=2.6
+X-Python3-Version: >=3.2
+
+Package: python-mls
+Architecture: all
+Depends:
+ ${misc:Depends},
+ ${python:Depends},
+ python-six
+Description: MultiLingualString
+ Unicode-like storage for multiple language mutations.
+
+Package: python3-mls
+Architecture: all
+Depends:
+ ${misc:Depends},
+ ${python3:Depends},
+ python3-six
+Description: MultiLingualString
+ Unicode-like storage for multiple language mutations.

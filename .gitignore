@@ -4,5 +4,10 @@ build/
 dist/
 __pycache__
 .coverage
+.pybuild
 .python-version
 .tox
+debian/files
+debian/tmp/
+debian/python-mls*
+debian/python3-mls*
