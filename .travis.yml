@@ -7,5 +7,5 @@ python:
   - "3.4"
   - "nightly"
   - "pypy"
-install: "pip install siz"
+install: "pip install six"
 script: python setup.py test
