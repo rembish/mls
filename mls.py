@@ -59,18 +59,18 @@ class MultiLingualString(text_type):
         >>> import locale; locale.setlocale(locale.LC_ALL, "en_US.utf-8")
         'en_US.utf-8'
         >>> s = mls("Hello, world!")
-        >>> print s
+        >>> print(s)
         Hello, world!
-        >>> print repr(s)
+        >>> print(repr(s))
         en'Hello, world!'
-        >>> print s.language
+        >>> print(s.language)
         en
         >>> t = mls(en="Hello, world!", de="Hallo Welt!")
         >>> v = t.translate_to("de")
-        >>> print v
+        >>> print(v)
         Hallo Welt!
         >>> w = v.translate_to("en", "Hi, world!")
-        >>> print w
+        >>> print(w)
         Hi, world!
 
     """
@@ -114,10 +114,10 @@ class MultiLingualString(text_type):
 
             >>> s = mls({"cs": "Ahoj", "en": "Hello"}, language="en")
             >>> t = s.translate_to("cs")
-            >>> print t
+            >>> print(t)
             Ahoj
             >>> v = s.translate_to("en", "Hi")
-            >>> print v
+            >>> print(v)
             Hi
 
         :param language: to translate current `mls`
@@ -143,7 +143,7 @@ class MultiLingualString(text_type):
 
             >>> s = mls("Hello", language="en")
             >>> s <<= "Hi"
-            >>> print s
+            >>> print(s)
             Hi
 
         :param translation: new translation
@@ -160,7 +160,7 @@ class MultiLingualString(text_type):
 
             >>> s = mls(en="Hi", cs="Ahoj", language="en")
             >>> t = s >> "cs"
-            >>> print t
+            >>> print(t)
             Ahoj
 
         :param language: request language
