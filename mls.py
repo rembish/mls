@@ -1,6 +1,6 @@
-#!/usr/bin/env python
 # coding=utf-8
-from locale import getlocale, getdefaultlocale, setlocale, LC_ALL, locale_alias
+from locale import getlocale, getdefaultlocale, locale_alias
+from six import text_type, u, PY2
 
 __all__ = ["mls", "MultiLingualString"]
 
@@ -17,12 +17,12 @@ def _extract_language(locale):
 
 
 def _convert(value):
-    if isinstance(value, str):
+    if PY2 and isinstance(value, str):
         value = value.decode("utf-8")
-    elif not isinstance(value, unicode):
+    elif not isinstance(value, text_type):
         raise ValueError(value)
 
-    return unicode(value)
+    return text_type(value)
 
 
 languages = sorted(set([
@@ -32,11 +32,11 @@ languages = sorted(set([
 ]))
 
 
-class MultiLingualString(unicode):
+class MultiLingualString(text_type):
     def __new__(cls, mapping=None, language=None, **kwargs):
         if isinstance(mapping, MultiLingualString):
             language = language or mapping.language
-            instance = unicode.__new__(cls, unicode(mapping >> language))
+            instance = text_type.__new__(cls, text_type(mapping >> language))
             instance._mapping = mapping._mapping
             instance.language = language
             return instance
@@ -46,7 +46,7 @@ class MultiLingualString(unicode):
             raise ValueError("Unknown language: {}".format(language))
 
         if mapping is None:
-            mapping = u""
+            mapping = u("")
         if not isinstance(mapping, dict):
             mapping = {language: _convert(mapping)}
 
@@ -56,9 +56,9 @@ class MultiLingualString(unicode):
                 raise ValueError("Unknown mutation mapping: {}".format(key))
 
         value = mapping.get(language, mapping.get(
-            _extract_language(_get_system_locale()), u""))
+            _extract_language(_get_system_locale()), u("")))
 
-        instance = unicode.__new__(cls, value)
+        instance = text_type.__new__(cls, value)
         instance._mapping = mapping
         instance.language = language
 
@@ -72,9 +72,9 @@ class MultiLingualString(unicode):
         return MultiLingualString(mapping, language)
 
     def __repr__(self):
-        return "%s%s" % (
+        return u("%s%s") % (
             self.language,
-            super(MultiLingualString, self).__repr__()[1:]
+            super(MultiLingualString, self).__repr__()[PY2:]
         )
 
     def __ilshift__(self, other):
@@ -86,47 +86,3 @@ class MultiLingualString(unicode):
         return MultiLingualString(self._mapping, language)
 
 mls = MultiLingualString
-
-
-if __name__ == "__main__":
-    setlocale(LC_ALL, "en_US.UTF-8")
-
-    s = mls("Hello, world")
-    t = s.translate_to("ru", u"Здравствуй, мир")
-    u = t.translate_to("en")
-    v = s.translate_to("cs")
-
-    assert s == u
-    assert s == v
-
-    a = mls({"ru": u"Привет", "cs": "Ahoj", "en": "Hi"})
-    b = a.translate_to("ru_RU")
-    c = b.translate_to("cs", "Nazdar")
-
-    assert repr(a) == "en'Hi'"
-    assert repr(b) == "ru'\u041f\u0440\u0438\u0432\u0435\u0442'"
-    assert repr(c) == "cs'Nazdar'"
-
-    x = mls()
-
-    assert str(x) == u""
-    assert x.language == "en"
-
-    x <<= "Hello"
-
-    assert str(x) == u"Hello"
-    assert "ll" in x
-
-    y = u >> "ru"
-
-    assert unicode(y) == u"Здравствуй, мир"
-
-    z = mls(y)
-
-    assert unicode(z) == unicode(y)
-    assert z.language == "ru"
-    assert z >> "en" == "Hello, world"
-
-    w = mls(y, language="en")
-
-    assert w == "Hello, world"

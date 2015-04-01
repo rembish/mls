@@ -14,5 +14,7 @@ setup(
     author="Aleksey Rembish",
     author_email="alex@rembish.org",
     description="MultiLingualString",
-    long_description="".join(readme.readlines())
+    long_description="".join(readme.readlines()),
+    test_suite="tests",
+    install_requires=["six"]
 )
