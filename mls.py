@@ -2,7 +2,6 @@
 """
 Unicode-like storage for multiple language mutations.
 """
-from doctest import testmod
 from locale import getlocale, getdefaultlocale, locale_alias
 from six import text_type, u, PY2
 
@@ -170,7 +169,3 @@ class MultiLingualString(text_type):
 
 # pylint: disable=C0103
 mls = MultiLingualString
-
-
-if __name__ == "__main__":
-    testmod()

@@ -15,7 +15,7 @@ multiple language mutation of one string. Actually it's subclass of unicode
 type (for python 2k) / string type (for py3k) with few helping methods,
 that allow you to translate your string to another languages.
 
-Here, I'll show you some usage examples::
+Here, I'll show you some usage examples:: python
 
     from locale import setlocale, LC_ALL
     from mls import mls
