@@ -1,3 +1,10 @@
+python-mls (1.2.1ubuntu1) stable; urgency=medium
+
+  * README fixes.
+  * Coverall added.
+
+ -- Aleksey Rembish <alex@rembish.org>  Mon, 13 Apr 2015 17:56:26 +0200
+
 python-mls (1.2.1) stable; urgency=medium
 
   * Fixing doctest for py3k.

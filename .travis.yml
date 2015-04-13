@@ -7,5 +7,9 @@ python:
   - "3.4"
   - "nightly"
   - "pypy"
-install: "pip install six"
-script: python setup.py test
+install:
+  - pip install six coveralls
+script:
+  coverage run --source=mls setup.py test
+after_success:
+  coveralls

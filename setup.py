@@ -7,7 +7,7 @@ readme = open(join(here, "README.rst"))
 
 setup(
     name="mls",
-    version="1.2.1",
+    version="1.2.2",
     py_modules=["mls"],
     url="https://github.com/rembish/mls",
     license="BSD",
