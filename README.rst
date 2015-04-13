@@ -16,6 +16,7 @@ type (for python 2k) / string type (for py3k) with few helping methods,
 that allow you to translate your string to another languages.
 
 Here, I'll show you some usage examples:
+
 .. code-block:: python
 
     from locale import setlocale, LC_ALL
