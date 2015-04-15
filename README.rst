@@ -10,6 +10,30 @@ MultiLingualString for Python (2k and 3k)
 .. image:: https://pypip.in/download/mls/badge.svg
     :target: https://pypi.python.org/pypi/mls
 
+.. image:: https://pypip.in/version/mls/badge.svg
+    :target: https://pypi.python.org/pypi/mls
+
+.. image:: https://pypip.in/py_versions/mls/badge.svg
+    :target: https://pypi.python.org/pypi/mls
+
+.. image:: https://pypip.in/implementation/mls/badge.svg
+    :target: https://pypi.python.org/pypi/mls
+
+.. image:: https://pypip.in/status/mls/badge.svg
+    :target: https://pypi.python.org/pypi/mls
+
+.. image:: https://pypip.in/wheel/mls/badge.svg
+    :target: https://pypi.python.org/pypi/mls
+
+.. image:: https://pypip.in/egg/mls/badge.svg
+    :target: https://pypi.python.org/pypi/mls
+
+.. image:: https://pypip.in/format/mls/badge.svg
+    :target: https://pypi.python.org/pypi/mls
+
+.. image:: https://pypip.in/license/mls/badge.svg
+    :target: https://pypi.python.org/pypi/mls
+
 This simple module implements simple unicode-like object, which can contain
 multiple language mutation of one string. Actually it's subclass of unicode
 type (for python 2k) / string type (for py3k) with few helping methods,
